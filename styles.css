@@ -584,6 +584,47 @@ img, video, iframe {
   margin-top: 16px;
 }
 
+.gg-social-guidance {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  margin-bottom: clamp(24px, 3vw, 36px);
+}
+
+@media (max-width: 700px) {
+  .gg-social-guidance {
+    grid-template-columns: 1fr;
+  }
+}
+
+.gg-hashtag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 8px 0 12px;
+}
+
+.gg-hashtag-chip {
+  display: inline-flex;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: var(--gg-navy);
+  color: var(--gg-white);
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.gg-social-links {
+  list-style: none;
+  margin: 8px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  color: var(--gg-muted-text);
+  font-size: 0.95rem;
+}
+
 .gg-copy-block-list {
   display: flex;
   flex-direction: column;
