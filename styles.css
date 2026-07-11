@@ -638,15 +638,6 @@ img, video, iframe {
   font-size: 0.95rem;
 }
 
-.gg-copy-group-heading {
-  font-size: 0.85rem;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--gg-teal);
-  margin: 0 0 12px;
-}
-
 .gg-copy-block-list {
   display: flex;
   flex-direction: column;
