@@ -203,6 +203,44 @@
       .join("\n\n");
   }
 
+  // Builds an HTML clipboard payload that bakes the blank line between
+  // paragraphs in directly (via <br><br>) instead of relying on <p> margins,
+  // since many paste targets (webmail composers, note apps) discard block-level
+  // margins and collapse paragraphs together with no visible gap.
+  function escapeHtml(text) {
+    const div = document.createElement("div");
+    div.textContent = text;
+    return div.innerHTML;
+  }
+
+  function inlineToHtml(node) {
+    if (node.nodeType === Node.TEXT_NODE) return escapeHtml(node.textContent);
+    if (node.nodeType !== Node.ELEMENT_NODE) return "";
+    if (node.tagName === "BR") return "<br>";
+    const inner = Array.from(node.childNodes).map(inlineToHtml).join("");
+    if (node.tagName === "A") {
+      const href = node.getAttribute("href") || "";
+      return `<a href="${escapeHtml(href)}">${inner}</a>`;
+    }
+    if (node.tagName === "STRONG" || node.tagName === "EM") {
+      return `<${node.tagName.toLowerCase()}>${inner}</${node.tagName.toLowerCase()}>`;
+    }
+    return inner;
+  }
+
+  function richTextToClipboardHtml(container) {
+    return Array.from(container.children)
+      .map((child) => {
+        if (child.tagName === "OL" || child.tagName === "UL") {
+          return Array.from(child.children)
+            .map((li) => Array.from(li.childNodes).map(inlineToHtml).join("").trim())
+            .join("<br>");
+        }
+        return Array.from(child.childNodes).map(inlineToHtml).join("").trim();
+      })
+      .join("<br><br>");
+  }
+
   // Copy buttons for the sample emails, event description versions, and social posts
   document.querySelectorAll("[data-copy-block]").forEach((btn) => {
     const card = btn.closest(".gg-copy-block");
@@ -212,8 +250,9 @@
     btn.addEventListener("click", async () => {
       const subjectEl = card.querySelector(".gg-email-subject");
       const bodyText = richTextToPlainText(body);
+      const bodyHtml = richTextToClipboardHtml(body);
       const plainText = subjectEl ? `Subject: ${subjectEl.textContent}\n\n${bodyText}` : bodyText;
-      const html = subjectEl ? `<p><strong>Subject:</strong> ${subjectEl.textContent}</p>${body.innerHTML}` : body.innerHTML;
+      const html = subjectEl ? `<strong>Subject:</strong> ${escapeHtml(subjectEl.textContent)}<br><br>${bodyHtml}` : bodyHtml;
       const ok = await copyToClipboard(plainText, html);
       if (status) status.textContent = ok ? "Copied to clipboard" : "Copy failed — please select and copy manually";
       setTimeout(() => {
