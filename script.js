@@ -34,9 +34,14 @@
     actionsEl.className = "gg-card-actions";
     actions.forEach((a) => {
       const btn = document.createElement("a");
-      btn.href = a.href;
-      btn.target = "_blank";
-      btn.rel = "noopener noreferrer";
+      if (a.download) {
+        btn.href = `/api/download?url=${encodeURIComponent(a.href)}&name=${encodeURIComponent(a.filename || "download.png")}`;
+        btn.setAttribute("download", a.filename || "");
+      } else {
+        btn.href = a.href;
+        btn.target = "_blank";
+        btn.rel = "noopener noreferrer";
+      }
       btn.className = "gg-button gg-button-sm" + (a.secondary ? " gg-button-secondary" : "");
       btn.textContent = a.label;
       actionsEl.appendChild(btn);
@@ -51,10 +56,10 @@
     if (!grid) return;
     const logos = globalGatheringMediaAssets.logos;
     const entries = [
-      { key: logos.markOnly, desc: "The Global Gathering mark on its own, for compact or icon-style placements.", onNavy: false },
-      { key: logos.transparent, desc: "Full logo with a transparent background, for layering over your own designs.", onNavy: false },
-      { key: logos.whiteBackground, desc: "Full logo on white, ready to drop into documents and presentations.", onNavy: false },
-      { key: logos.navyBackground, desc: "Full logo on navy, for dark-background use.", onNavy: true }
+      { key: logos.markOnly, desc: "A compact version of the Global Gathering mark for places where the full event name appears nearby.", onNavy: false, filename: "global-gathering-logo-mark.png" },
+      { key: logos.transparent, desc: "The full event logo with a transparent background, useful for most websites, graphics, and digital materials.", onNavy: false, filename: "global-gathering-logo-transparent.png" },
+      { key: logos.whiteBackground, desc: "The full logo on white, ready to use in documents, presentations, email graphics, and light-background layouts.", onNavy: false, filename: "global-gathering-logo-white-background.png" },
+      { key: logos.navyBackground, desc: "The full logo on deep navy, useful for dark-background layouts and branded sections.", onNavy: true, filename: "global-gathering-logo-navy-background.png" }
     ];
     entries.forEach((entry, i) => {
       grid.appendChild(
@@ -64,7 +69,7 @@
           previewUrl: entry.key.url,
           previewOnNavy: entry.onNavy,
           accentIndex: i,
-          actions: [{ href: entry.key.url, label: "Download (PNG)" }]
+          actions: [{ href: entry.key.url, label: "Download (PNG)", download: true, filename: entry.filename }]
         })
       );
     });
@@ -77,10 +82,10 @@
     grid.appendChild(
       card({
         title: b.title,
-        desc: "A wide event banner for email headers, web heroes, and slide decks.",
+        desc: "A ready-to-use banner featuring the Global Gathering identity and event information.",
         previewUrl: b.url,
         accentIndex: 0,
-        actions: [{ href: b.url, label: "Download (PNG)" }]
+        actions: [{ href: b.url, label: "Download (PNG)", download: true, filename: "global-gathering-event-banner.png" }]
       })
     );
   }
@@ -90,20 +95,20 @@
     if (!grid) return;
     const g = globalGatheringMediaAssets.promotionalGraphics;
     const entries = [
-      { data: g.presenter, desc: "Invite colleagues to submit a proposal and present at the Gathering." },
-      { data: g.attendee, desc: "Invite colleagues to register and take part in the Gathering." },
-      { data: g.partner, desc: "Invite organizations to partner with the Gathering." }
+      { data: g.presenter, title: "Share Your Participation as a Presenter", desc: "For confirmed presenters who want to share that they are part of the 2026 Global Gathering program.", filename: "global-gathering-presenter-graphic.png" },
+      { data: g.attendee, title: "Invite Others to Attend", desc: "A ready-to-use graphic for sharing that registration is open and inviting colleagues, teams, and networks to explore the Gathering.", filename: "global-gathering-attendee-graphic.png" },
+      { data: g.partner, title: "Share as a Community or Organizational Partner", desc: "For organizations, community partners, and networks that are connected to the Gathering or helping spread the word.", filename: "global-gathering-partner-graphic.png" }
     ];
     entries.forEach((entry, i) => {
       grid.appendChild(
         card({
-          title: entry.data.title,
+          title: entry.title,
           desc: entry.desc,
           previewUrl: entry.data.imageUrl,
           accentIndex: i + 1,
           actions: [
-            { href: entry.data.imageUrl, label: "Download (PNG)" },
-            { href: entry.data.canvaTemplateUrl, label: "Edit in Canva", secondary: true }
+            { href: entry.data.imageUrl, label: "Download (PNG)", download: true, filename: entry.filename },
+            { href: entry.data.canvaTemplateUrl, label: "Customize in Canva", secondary: true }
           ]
         })
       );

@@ -249,6 +249,16 @@ img, video, iframe {
   margin-bottom: 16px;
 }
 
+.gg-hero-date {
+  color: var(--gg-teal);
+  margin-bottom: 20px;
+}
+
+.gg-section-subheading {
+  font-weight: 600;
+  color: var(--gg-navy);
+}
+
 .gg-hero-actions {
   display: flex;
   gap: 16px;
