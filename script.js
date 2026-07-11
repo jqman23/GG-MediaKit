@@ -1,7 +1,7 @@
 (function () {
   const accents = ["", "accent-red", "accent-sage", "accent-amber"];
 
-  function card({ title, desc, format, previewUrl, previewOnNavy, actions, accentIndex }) {
+  function card({ title, desc, previewUrl, previewOnNavy, actions, accentIndex }) {
     const el = document.createElement("article");
     el.className = "gg-card";
     el.setAttribute("role", "listitem");
@@ -29,11 +29,6 @@
     p.className = "gg-card-desc";
     p.textContent = desc;
     el.appendChild(p);
-
-    const fmt = document.createElement("div");
-    fmt.className = "gg-card-format";
-    fmt.textContent = format;
-    el.appendChild(fmt);
 
     const actionsEl = document.createElement("div");
     actionsEl.className = "gg-card-actions";
@@ -66,11 +61,10 @@
         card({
           title: entry.key.title,
           desc: entry.desc,
-          format: "PNG",
           previewUrl: entry.key.url,
           previewOnNavy: entry.onNavy,
           accentIndex: i,
-          actions: [{ href: entry.key.url, label: "Download" }]
+          actions: [{ href: entry.key.url, label: "Download (PNG)" }]
         })
       );
     });
@@ -84,10 +78,9 @@
       card({
         title: b.title,
         desc: "A wide event banner for email headers, web heroes, and slide decks.",
-        format: "PNG",
         previewUrl: b.url,
         accentIndex: 0,
-        actions: [{ href: b.url, label: "Download" }]
+        actions: [{ href: b.url, label: "Download (PNG)" }]
       })
     );
   }
@@ -106,11 +99,10 @@
         card({
           title: entry.data.title,
           desc: entry.desc,
-          format: "PNG",
           previewUrl: entry.data.imageUrl,
           accentIndex: i + 1,
           actions: [
-            { href: entry.data.imageUrl, label: "Download" },
+            { href: entry.data.imageUrl, label: "Download (PNG)" },
             { href: entry.data.canvaTemplateUrl, label: "Edit in Canva", secondary: true }
           ]
         })
