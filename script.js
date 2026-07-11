@@ -122,6 +122,23 @@
   renderBanners();
   renderGraphics();
 
+  // Copy video link buttons
+  document.querySelectorAll("[data-copy-url]").forEach((btn) => {
+    btn.addEventListener("click", async () => {
+      const url = btn.getAttribute("data-copy-value");
+      const original = btn.textContent;
+      try {
+        await navigator.clipboard.writeText(url);
+        btn.textContent = "Copied";
+      } catch (err) {
+        btn.textContent = "Copy failed";
+      }
+      setTimeout(() => {
+        btn.textContent = original;
+      }, 2000);
+    });
+  });
+
   // Copy embed code buttons
   document.querySelectorAll("[data-copy-embed]").forEach((btn) => {
     btn.addEventListener("click", async () => {
@@ -215,5 +232,30 @@
     });
 
     scheduleReport();
+
+    // Same-page anchor links (nav, hero CTAs) can't scroll anything themselves —
+    // the iframe is sized to exactly fit its content (scrolling="no"), so there's
+    // no internal scroll position to change. Ask the parent page to scroll instead.
+    document.addEventListener("click", (e) => {
+      const link = e.target.closest('a[href^="#"]');
+      if (!link) return;
+      const id = link.getAttribute("href").slice(1);
+      const target = document.getElementById(id);
+      if (!target) return;
+      e.preventDefault();
+      const offset = target.getBoundingClientRect().top + window.scrollY;
+      window.parent.postMessage({ ggScrollToOffset: offset }, "*");
+    });
+  } else {
+    // Standalone (not embedded): smooth-scroll same-page anchors normally.
+    document.addEventListener("click", (e) => {
+      const link = e.target.closest('a[href^="#"]');
+      if (!link) return;
+      const id = link.getAttribute("href").slice(1);
+      const target = document.getElementById(id);
+      if (!target) return;
+      e.preventDefault();
+      target.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
   }
 })();
