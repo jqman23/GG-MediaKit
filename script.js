@@ -87,7 +87,7 @@
         format: "PNG",
         previewUrl: b.url,
         accentIndex: 0,
-        actions: [{ href: b.url, label: "Open full-size graphic" }]
+        actions: [{ href: b.url, label: "Download (PNG)" }]
       })
     );
   }
@@ -110,7 +110,7 @@
           previewUrl: entry.data.imageUrl,
           accentIndex: i + 1,
           actions: [
-            { href: entry.data.imageUrl, label: "Open full-size graphic" },
+            { href: entry.data.imageUrl, label: "Download (PNG)" },
             { href: entry.data.canvaTemplateUrl, label: "Edit in Canva", secondary: true }
           ]
         })
