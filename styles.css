@@ -610,13 +610,6 @@ img, video, iframe {
   }
 }
 
-.gg-highlight {
-  background: var(--gg-sand);
-  padding: 0.05em 0.3em;
-  border-radius: 4px;
-  font-weight: 500;
-}
-
 .gg-hashtag-list {
   display: flex;
   flex-wrap: wrap;
@@ -643,6 +636,15 @@ img, video, iframe {
   gap: 10px;
   color: var(--gg-muted-text);
   font-size: 0.95rem;
+}
+
+.gg-copy-group-heading {
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--gg-teal);
+  margin: 0 0 12px;
 }
 
 .gg-copy-block-list {

@@ -181,23 +181,29 @@
     });
   });
 
-  // Copy email draft
-  const copyEmailBtn = document.getElementById("copy-email-btn");
-  const copyEmailStatus = document.getElementById("copy-email-status");
-  const emailBody = document.getElementById("email-body");
-  if (copyEmailBtn && emailBody) {
-    copyEmailBtn.addEventListener("click", async () => {
-      const subject = "A virtual learning opportunity: 2026 Global Gathering for the Future of Child Welfare";
-      const plainText = subject + "\n\n" + emailBody.innerText;
-      const ok = await copyToClipboard(plainText, emailBody.innerHTML);
-      copyEmailStatus.textContent = ok ? "Copied to clipboard" : "Copy failed — please select and copy manually";
-      setTimeout(() => {
-        copyEmailStatus.textContent = "";
-      }, 3000);
-    });
+  // Converts a rich-text block (paragraphs, lists, <br>) into plain text with
+  // a blank line between paragraphs/list items, since element.innerText
+  // collapses adjacent block boundaries to a single newline in most browsers
+  // and loses the paragraph spacing when pasted into an email client.
+  function blockToPlainText(node) {
+    if (node.nodeType === Node.TEXT_NODE) return node.textContent;
+    if (node.nodeType !== Node.ELEMENT_NODE) return "";
+    if (node.tagName === "BR") return "\n";
+    if (node.tagName === "OL" || node.tagName === "UL") {
+      return Array.from(node.children)
+        .map((li) => Array.from(li.childNodes).map(blockToPlainText).join("").trim())
+        .join("\n\n");
+    }
+    return Array.from(node.childNodes).map(blockToPlainText).join("");
   }
 
-  // Copy buttons for the event description versions
+  function richTextToPlainText(container) {
+    return Array.from(container.children)
+      .map((child) => blockToPlainText(child).trim())
+      .join("\n\n");
+  }
+
+  // Copy buttons for the sample emails, event description versions, and social posts
   document.querySelectorAll("[data-copy-block]").forEach((btn) => {
     const card = btn.closest(".gg-copy-block");
     const body = card && card.querySelector("[data-copy-block-body]");
@@ -205,7 +211,8 @@
     if (!body) return;
     btn.addEventListener("click", async () => {
       const subjectEl = card.querySelector(".gg-email-subject");
-      const plainText = subjectEl ? `Subject: ${subjectEl.textContent}\n\n${body.innerText}` : body.innerText;
+      const bodyText = richTextToPlainText(body);
+      const plainText = subjectEl ? `Subject: ${subjectEl.textContent}\n\n${bodyText}` : bodyText;
       const html = subjectEl ? `<p><strong>Subject:</strong> ${subjectEl.textContent}</p>${body.innerHTML}` : body.innerHTML;
       const ok = await copyToClipboard(plainText, html);
       if (status) status.textContent = ok ? "Copied to clipboard" : "Copy failed — please select and copy manually";
