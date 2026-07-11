@@ -585,6 +585,18 @@ img, video, iframe {
   margin-top: 16px;
 }
 
+.gg-email-body[contenteditable="true"] {
+  border-radius: var(--gg-radius-sm);
+  outline: 1px dashed var(--gg-border);
+  outline-offset: 6px;
+  cursor: text;
+}
+
+.gg-email-body[contenteditable="true"]:hover,
+.gg-email-body[contenteditable="true"]:focus {
+  outline-color: var(--gg-teal);
+}
+
 .gg-social-guidance {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -596,6 +608,13 @@ img, video, iframe {
   .gg-social-guidance {
     grid-template-columns: 1fr;
   }
+}
+
+.gg-highlight {
+  background: var(--gg-sand);
+  padding: 0.05em 0.3em;
+  border-radius: 4px;
+  font-weight: 500;
 }
 
 .gg-hashtag-list {
