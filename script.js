@@ -190,8 +190,12 @@
     if (node.nodeType !== Node.ELEMENT_NODE) return "";
     if (node.tagName === "BR") return "\n";
     if (node.tagName === "OL" || node.tagName === "UL") {
+      const ordered = node.tagName === "OL";
       return Array.from(node.children)
-        .map((li) => Array.from(li.childNodes).map(blockToPlainText).join("").trim())
+        .map((li, i) => {
+          const marker = ordered ? `${i + 1}. ` : "• ";
+          return marker + Array.from(li.childNodes).map(blockToPlainText).join("").trim();
+        })
         .join("\n\n");
     }
     return Array.from(node.childNodes).map(blockToPlainText).join("");
@@ -232,9 +236,11 @@
     return Array.from(container.children)
       .map((child) => {
         if (child.tagName === "OL" || child.tagName === "UL") {
-          return Array.from(child.children)
-            .map((li) => Array.from(li.childNodes).map(inlineToHtml).join("").trim())
-            .join("<br>");
+          const tag = child.tagName.toLowerCase();
+          const items = Array.from(child.children)
+            .map((li) => `<li>${Array.from(li.childNodes).map(inlineToHtml).join("").trim()}</li>`)
+            .join("");
+          return `<${tag}>${items}</${tag}>`;
         }
         return Array.from(child.childNodes).map(inlineToHtml).join("").trim();
       })
