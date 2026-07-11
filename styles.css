@@ -320,13 +320,26 @@ img, video, iframe {
   background: rgba(18, 35, 69, 0.06);
 }
 
-.gg-hero .gg-button-secondary {
+.gg-hero .gg-button-secondary,
+.gg-section-navy .gg-button-secondary {
   border-color: var(--gg-white);
   color: var(--gg-white);
 }
 
-.gg-hero .gg-button-secondary:hover {
+.gg-hero .gg-button-secondary:hover,
+.gg-section-navy .gg-button-secondary:hover {
   background: rgba(255, 255, 255, 0.1);
+}
+
+.gg-section-navy .gg-button:not(.gg-button-secondary) {
+  background: var(--gg-white);
+  border-color: var(--gg-white);
+  color: var(--gg-navy);
+}
+
+.gg-section-navy .gg-button:not(.gg-button-secondary):hover {
+  background: var(--gg-sand);
+  border-color: var(--gg-sand);
 }
 
 .gg-button-sm {
@@ -435,6 +448,7 @@ img, video, iframe {
 }
 
 .gg-section-navy h2,
+.gg-section-navy h3,
 .gg-section-navy .gg-section-label {
   color: var(--gg-white);
 }

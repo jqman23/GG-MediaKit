@@ -173,4 +173,47 @@
       }, 3000);
     });
   }
+
+  // Embed support: report content height to the parent frame (see embed snippet:
+  // listens for { ggWidgetHeight } and sizes the iframe; scrolling="no" on the
+  // iframe means the page itself must never need an internal scrollbar).
+  if (window.self !== window.top) {
+    let lastHeight = 0;
+    let scheduled = false;
+
+    function reportHeight() {
+      const height = Math.ceil(document.documentElement.getBoundingClientRect().height);
+      if (Math.abs(height - lastHeight) > 1) {
+        lastHeight = height;
+        window.parent.postMessage({ ggWidgetHeight: height }, "*");
+      }
+    }
+
+    function scheduleReport() {
+      if (scheduled) return;
+      scheduled = true;
+      requestAnimationFrame(() => {
+        scheduled = false;
+        reportHeight();
+      });
+    }
+
+    if (window.ResizeObserver) {
+      new ResizeObserver(scheduleReport).observe(document.documentElement);
+    }
+
+    window.addEventListener("load", scheduleReport);
+    window.addEventListener("resize", scheduleReport);
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(scheduleReport);
+    }
+
+    window.addEventListener("message", (e) => {
+      if (e.data && e.data.ggScrollTop !== undefined) {
+        // Reserved for future use (e.g. lazy content tied to visible viewport).
+      }
+    });
+
+    scheduleReport();
+  }
 })();
