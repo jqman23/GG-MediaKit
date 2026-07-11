@@ -241,6 +241,7 @@ img, video, iframe {
 
 .gg-hero-intro-inner {
   max-width: 720px;
+  padding-left: clamp(12px, 1.5vw, 24px);
 }
 
 .gg-hero-intro .gg-lede {
