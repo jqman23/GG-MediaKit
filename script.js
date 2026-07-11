@@ -70,7 +70,7 @@
           previewUrl: entry.key.url,
           previewOnNavy: entry.onNavy,
           accentIndex: i,
-          actions: [{ href: entry.key.url, label: "Open logo" }]
+          actions: [{ href: entry.key.url, label: "Download" }]
         })
       );
     });
