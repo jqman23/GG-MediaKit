@@ -204,7 +204,10 @@
     const status = card && card.querySelector("[data-copy-block-status]");
     if (!body) return;
     btn.addEventListener("click", async () => {
-      const ok = await copyToClipboard(body.innerText, body.innerHTML);
+      const subjectEl = card.querySelector(".gg-email-subject");
+      const plainText = subjectEl ? `Subject: ${subjectEl.textContent}\n\n${body.innerText}` : body.innerText;
+      const html = subjectEl ? `<p><strong>Subject:</strong> ${subjectEl.textContent}</p>${body.innerHTML}` : body.innerHTML;
+      const ok = await copyToClipboard(plainText, html);
       if (status) status.textContent = ok ? "Copied to clipboard" : "Copy failed — please select and copy manually";
       setTimeout(() => {
         if (status) status.textContent = "";
