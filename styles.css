@@ -527,6 +527,12 @@ img, video, iframe {
   color: var(--gg-muted-text);
 }
 
+.gg-copy-block-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
 .gg-copy-status {
   font-size: 0.9rem;
   color: var(--gg-teal);

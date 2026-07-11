@@ -191,6 +191,39 @@
     });
   }
 
+  // Copy buttons for the event description versions
+  document.querySelectorAll("[data-copy-block]").forEach((btn) => {
+    const card = btn.closest(".gg-copy-block");
+    const body = card && card.querySelector("[data-copy-block-body]");
+    const status = card && card.querySelector("[data-copy-block-status]");
+    if (!body) return;
+    btn.addEventListener("click", async () => {
+      const plainText = body.innerText;
+      try {
+        if (window.ClipboardItem) {
+          const htmlBlob = new Blob([body.innerHTML], { type: "text/html" });
+          const textBlob = new Blob([plainText], { type: "text/plain" });
+          await navigator.clipboard.write([
+            new ClipboardItem({ "text/html": htmlBlob, "text/plain": textBlob })
+          ]);
+        } else {
+          await navigator.clipboard.writeText(plainText);
+        }
+        if (status) status.textContent = "Copied to clipboard";
+      } catch (err) {
+        try {
+          await navigator.clipboard.writeText(plainText);
+          if (status) status.textContent = "Copied to clipboard";
+        } catch (err2) {
+          if (status) status.textContent = "Copy failed — please select and copy manually";
+        }
+      }
+      setTimeout(() => {
+        if (status) status.textContent = "";
+      }, 3000);
+    });
+  });
+
   // Embed support: report content height to the parent frame (see embed snippet:
   // listens for { ggWidgetHeight } and sizes the iframe; scrolling="no" on the
   // iframe means the page itself must never need an internal scrollbar).
