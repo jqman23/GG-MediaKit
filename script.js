@@ -230,7 +230,7 @@
     btn.addEventListener("click", () => activateTab(btn.getAttribute("data-tab-target")));
   });
 
-  activateTab("logos");
+  activateTab("home");
 
   // Embed support: report content height to the parent frame (see embed
   // snippet: listens for { ggWidgetHeight } and sizes the iframe;
