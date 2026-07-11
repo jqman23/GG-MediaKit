@@ -18,15 +18,15 @@
 
 <header class="gg-header">
   <div class="gg-container-wide gg-header-inner">
-    <a class="gg-header-logo" href="#main" aria-label="Global Gathering media kit home">
+    <button type="button" class="gg-header-logo" data-tab-target="logos" aria-label="Global Gathering media kit home">
       <img src="https://custom.cvent.com/AE944F71438646268B70FF5BF3772347/files/event/e7d15afcf2b14901ab0272ce8a401899/de5749344a3541828cc5836db6f286db.png" alt="Global Gathering mark">
       <span class="gg-header-title">Global Gathering<br>Media Kit</span>
-    </a>
-    <nav class="gg-header-nav" aria-label="Section navigation">
-      <a href="#logos">Logos</a>
-      <a href="#graphics">Graphics</a>
-      <a href="#videos">Videos</a>
-      <a href="#email">Outreach email</a>
+    </button>
+    <nav class="gg-header-nav" aria-label="Section navigation" role="tablist">
+      <button type="button" class="gg-tab-btn" data-tab-target="logos" role="tab">Logos</button>
+      <button type="button" class="gg-tab-btn" data-tab-target="graphics" role="tab">Graphics</button>
+      <button type="button" class="gg-tab-btn" data-tab-target="videos" role="tab">Videos</button>
+      <button type="button" class="gg-tab-btn" data-tab-target="email" role="tab">Outreach email</button>
     </nav>
   </div>
 </header>
@@ -48,14 +48,14 @@
     <div class="gg-container gg-hero-intro-inner">
       <p class="gg-lede">Everything you need to help spread the word — logos, event graphics, videos, and ready-to-send outreach copy for the Gathering, taking place October 6–8, 2026.</p>
       <div class="gg-hero-actions">
-        <a class="gg-button" href="#logos">Browse the assets</a>
-        <a class="gg-button gg-button-secondary" href="#email">Get the outreach email</a>
+        <button type="button" class="gg-button" data-tab-target="logos">Browse the assets</button>
+        <button type="button" class="gg-button gg-button-secondary" data-tab-target="email">Get the outreach email</button>
       </div>
     </div>
   </section>
 
   <!-- Logos -->
-  <section id="logos" class="gg-section">
+  <section id="logos" data-tab-panel="logos" class="gg-section">
     <div class="gg-container">
       <span class="gg-section-label">Logos</span>
       <div class="gg-section-intro">
@@ -63,14 +63,8 @@
         <p>Four versions of the Global Gathering mark, ready for print, web, and presentation use. Please keep proportions intact — don't crop, stretch, recolor, or outline the logo, and avoid placing it over busy backgrounds.</p>
       </div>
       <div id="logo-grid" class="gg-grid" role="list"></div>
-    </div>
-  </section>
 
-  <!-- Banner -->
-  <section class="gg-section gg-section-tint">
-    <div class="gg-container">
-      <span class="gg-section-label">Banner</span>
-      <div class="gg-section-intro">
+      <div class="gg-section-intro" style="margin-top: clamp(48px, 6vw, 80px);">
         <h2>Event banner</h2>
         <p>A wide-format banner for email headers, web hero images, and event slides.</p>
       </div>
@@ -79,7 +73,7 @@
   </section>
 
   <!-- Promotional graphics -->
-  <section id="graphics" class="gg-section gg-section-sand">
+  <section id="graphics" data-tab-panel="graphics" class="gg-section gg-section-sand" hidden>
     <div class="gg-container">
       <span class="gg-section-label">Promotional graphics</span>
       <div class="gg-section-intro">
@@ -91,7 +85,7 @@
   </section>
 
   <!-- Videos -->
-  <section id="videos" class="gg-section gg-section-navy">
+  <section id="videos" data-tab-panel="videos" class="gg-section gg-section-navy" hidden>
     <div class="gg-section-arc" aria-hidden="true"></div>
     <div class="gg-container">
       <span class="gg-section-label">Videos</span>
@@ -147,7 +141,7 @@
   </section>
 
   <!-- Outreach email -->
-  <section id="email" class="gg-section">
+  <section id="email" data-tab-panel="email" class="gg-section" hidden>
     <div class="gg-container">
       <span class="gg-section-label">Sample outreach email</span>
       <div class="gg-section-intro">
@@ -167,6 +161,8 @@
           </div>
         </div>
 
+        <details class="gg-email-details">
+        <summary>Preview email</summary>
         <div class="gg-email-body" id="email-body">
           <p>Dear colleagues and community partners,</p>
 
@@ -192,6 +188,7 @@
 
           <p>Warmly,<br>[Your name]<br>[Your title, organization, or affiliation]</p>
         </div>
+        </details>
       </div>
 
       <div class="gg-section-intro" style="margin-top: clamp(48px, 6vw, 80px);">
@@ -209,11 +206,14 @@
               <span class="gg-copy-status" data-copy-block-status role="status" aria-live="polite"></span>
             </div>
           </div>
+          <details class="gg-email-details">
+          <summary>Preview text</summary>
           <div class="gg-email-body" data-copy-block-body>
             <p>A Global Gathering for the Future of Child Welfare is a bold, three-day virtual convening taking place October 6–8, 2026. It brings together people from around the world who are reimagining what child, youth, family, and community well-being can look like in the years ahead. Designed to move beyond traditional conference formats, the Gathering creates space for connection, creativity, lived experience, global perspectives, and future-focused thinking.</p>
             <p>The event begins with immersive Skill Building Institutes—3.5-hour, hands-on learning experiences that give courageous learners time to practice new approaches, explore practical frameworks, and strengthen skills they can carry into their work. The following two days feature inspiring keynotes, interactive workshops, solution-oriented strategy sessions, international exchanges, and creative spaces that use dialogue, film, poetry, storytelling, and other forms of expression to open new possibilities.</p>
             <p>Participants include those with lived experience, practitioners, supervisors, advocates, researchers, policymakers, community leaders, and emerging professionals. Across roles, disciplines, countries, and jurisdictions, they come together to challenge assumptions, exchange ideas, learn from one another, and turn imagination into action. The result is a dynamic global environment where relationships spark collaboration and a shared vision for the future begins to take shape.</p>
           </div>
+          </details>
         </div>
 
         <div class="gg-email-card gg-copy-block">
@@ -224,10 +224,13 @@
               <span class="gg-copy-status" data-copy-block-status role="status" aria-live="polite"></span>
             </div>
           </div>
+          <details class="gg-email-details">
+          <summary>Preview text</summary>
           <div class="gg-email-body" data-copy-block-body>
             <p>A Global Gathering for the Future of Child Welfare is a bold, three-day virtual convening taking place October 6–8, 2026. The Gathering brings together people from around the world to explore what child, youth, family, and community well-being can look like in the years ahead. Centering innovation, lived experience, creativity, and global perspectives, it moves beyond passive learning to create space for connection, dialogue, collective problem-solving, and future-focused action.</p>
             <p>The event begins with immersive, 3.5-hour Skill Building Institutes offering hands-on learning and practical frameworks. The following two days feature inspiring keynotes, interactive workshops, solution-oriented strategy sessions, international exchanges, and creative spaces. Participants—including those with lived experience, practitioners, supervisors, advocates, researchers, policymakers, community leaders, and emerging professionals—will exchange ideas, challenge assumptions, build connections, and help shape what comes next.</p>
           </div>
+          </details>
         </div>
 
         <div class="gg-email-card gg-copy-block">
@@ -238,9 +241,12 @@
               <span class="gg-copy-status" data-copy-block-status role="status" aria-live="polite"></span>
             </div>
           </div>
+          <details class="gg-email-details">
+          <summary>Preview text</summary>
           <div class="gg-email-body" data-copy-block-body>
             <p>A Global Gathering for the Future of Child Welfare is a bold, three-day virtual convening taking place October 6–8, 2026, bringing together people from around the world who are reimagining the future of child, youth, family, and community well-being. The event begins with immersive, 3.5-hour Skill Building Institutes focused on hands-on learning and practical frameworks, followed by two days of inspiring keynotes, interactive workshops, solution-oriented strategy sessions, international exchanges, and creative spaces. Designed to move beyond traditional conference formats, the Gathering centers innovation, lived experience, global perspectives, and future-focused thinking—creating a dynamic environment where participants exchange ideas, challenge assumptions, build relationships, and turn imagination into action.</p>
           </div>
+          </details>
         </div>
 
         <div class="gg-email-card gg-copy-block">
@@ -251,9 +257,12 @@
               <span class="gg-copy-status" data-copy-block-status role="status" aria-live="polite"></span>
             </div>
           </div>
+          <details class="gg-email-details">
+          <summary>Preview text</summary>
           <div class="gg-email-body" data-copy-block-body>
             <p>A Global Gathering for the Future of Child Welfare is a bold, three-day virtual convening taking place October 6–8, 2026. Through immersive Skill Building Institutes, inspiring keynotes, interactive workshops, solution-oriented strategy sessions, international exchanges, and creative spaces, people from around the world will explore new possibilities for child, youth, family, and community well-being. It is a space where ideas become action, connections spark collaboration, and a collective vision for the future takes shape.</p>
           </div>
+          </details>
         </div>
 
       </div>
@@ -261,12 +270,6 @@
   </section>
 
 </main>
-
-<footer class="gg-footer">
-  <div class="gg-container-wide gg-footer-inner">
-    <img src="https://custom.cvent.com/AE944F71438646268B70FF5BF3772347/files/event/e7d15afcf2b14901ab0272ce8a401899/774a6768431a4880974dc998d46aff10.png" alt="Global Gathering logo">
-  </div>
-</footer>
 
 <script src="assets.js"></script>
 <script src="script.js"></script>

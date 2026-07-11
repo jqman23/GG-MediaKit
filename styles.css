@@ -185,15 +185,33 @@ img, video, iframe {
   gap: 24px;
 }
 
-.gg-header-nav a {
+.gg-tab-btn {
+  background: none;
+  border: none;
   color: rgba(255, 255, 255, 0.85);
-  text-decoration: none;
+  font-family: "Montserrat", sans-serif;
   font-size: 0.95rem;
   font-weight: 500;
+  cursor: pointer;
+  padding: 6px 2px;
+  border-bottom: 2px solid transparent;
 }
 
-.gg-header-nav a:hover {
+.gg-tab-btn:hover {
   color: var(--gg-white);
+}
+
+.gg-tab-btn.is-active {
+  color: var(--gg-white);
+  font-weight: 600;
+  border-bottom-color: var(--gg-amber);
+}
+
+.gg-header-logo {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
 }
 
 @media (max-width: 640px) {
@@ -525,6 +543,34 @@ img, video, iframe {
 .gg-email-body li {
   margin-bottom: 14px;
   color: var(--gg-muted-text);
+}
+
+.gg-email-details summary {
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--gg-teal);
+  list-style: none;
+  padding: 4px 0;
+}
+
+.gg-email-details summary::-webkit-details-marker {
+  display: none;
+}
+
+.gg-email-details summary::before {
+  content: "+";
+  display: inline-block;
+  width: 1em;
+  font-weight: 700;
+}
+
+.gg-email-details[open] summary::before {
+  content: "\2212";
+}
+
+.gg-email-details .gg-email-body {
+  margin-top: 16px;
 }
 
 .gg-copy-block-list {
