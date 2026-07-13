@@ -415,6 +415,29 @@ img, video, iframe {
   margin-top: auto;
 }
 
+/* Important links */
+.gg-link-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.gg-link-card {
+  min-height: 100%;
+}
+
+.gg-link-url {
+  margin: 8px 0 16px;
+  padding: 10px 12px;
+  border: 1px solid var(--gg-border);
+  border-radius: var(--gg-radius-sm);
+  background: var(--gg-background);
+  color: var(--gg-muted-text);
+  font-size: 0.9rem;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
 /* Sections with tinted backgrounds */
 .gg-section-tint {
   background: var(--gg-white);
@@ -499,6 +522,16 @@ img, video, iframe {
 
 @media (max-width: 900px) {
   .gg-video-block {
+    grid-template-columns: 1fr;
+  }
+
+  .gg-link-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .gg-link-grid {
     grid-template-columns: 1fr;
   }
 }
